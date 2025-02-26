@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block comment %}
+ <main>
+            <div class="container">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h2 class="card-title" align="center">{{ brand.name }}</h2>
+                        {% if brand%}
+                        <h4>Ushbu brendga tegishli mashinalar:</h4>
+                        <ul>
+                        {% for car in cars %}
+                            <li>
+                                <a href="{% url 'car_detail' car_id=car.id %}">
+                                    <p><b>{{ car.name }}</b></p>
+                                    <p>Yili: {{ car.model_year }}</p>
+                                    <p>Narxi: ${{ car.price }}</p>
+                                </a>
+                                <a href="{% url 'update_car' car_id=car.id %}" class="btn btn-warning">Tahrirlash</a>
+                            </li>
+                        {% empty %}
+                            {% for brand in all_brands %}
+                                <p>{{ brand.name }}</p>
+                            {% endfor %}
+                            <p>🚗 Hozircha ushbu brendda mashinalar mavjud emas.</p>
+                        {% endfor %}
+                        {% endif %}
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+{% endblock comment %}
+
+
+
+
