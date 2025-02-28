@@ -20,6 +20,9 @@
             </button>
         {%else%}
         <button data-mdb-ripple-init type="submit" class="btn btn-primary me-2 px-2 py-1">
+        <a href="{% url 'send_message' %}" class="btn btn-primary  fw-bold"><b>Email</b></a>
+        </button>
+        <button data-mdb-ripple-init type="submit" class="btn btn-primary me-2 px-2 py-1">
         <a href="{% url 'user_logout' %}" class="btn btn-primary  fw-bold"><b>Logout</b></a>
         </button>
               <!-- Avatar -->

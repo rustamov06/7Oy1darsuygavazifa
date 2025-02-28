@@ -17,7 +17,6 @@
                                     <p>Yili: {{ car.model_year }}</p>
                                     <p>Narxi: ${{ car.price }}</p>
                                 </a>
-                                <a href="{% url 'update_car' car_id=car.id %}" class="btn btn-warning">Tahrirlash</a>
                             </li>
                         {% empty %}
                             {% for brand in all_brands %}
