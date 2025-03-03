@@ -14,13 +14,15 @@ class CarsForm(forms.ModelForm):
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
             'brand': forms.Select(attrs={'class': 'form-control'}),
         }
+
 class BrandsForm(forms.ModelForm):
     class Meta:
         model = Brands
         fields = ['name']
-        labels = {
-            'name': 'Brend nomi',
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
 
 class ColorForm(forms.ModelForm):
     class Meta:
@@ -120,3 +122,4 @@ class SendEmail(forms.Form):
         "class":'form-control',
         'rows':3
     }))
+
