@@ -9,12 +9,26 @@ from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
 from .models import Brands, Cars, Color, Comment, Profile
 from .form import CarsForm, BrandsForm, ColorForm, CommentFrom, RegisterForm, LoginForm, SendEmail
+from django.core.paginator import Paginator
+
 
 # 1. Mashinalar ro'yxati
+
+
 class CarsListView(ListView):
     model = Cars
-    template_name = "cars_list.html"
+    template_name = "main/cars_list.html"
     context_object_name = "cars"
+    paginate_by = 2
+
+    def get_queryset(self):
+        if self.request.GET.get("query"):
+            word = self.request.GET.get("query")
+            cars = Cars.objects.filter(car_name__icontains=word, price__icontains=word)
+        else:
+            cars = Cars.objects.all()
+        return cars
+
 
 # 2. Mashinalarni rang bo‘yicha filtrlash
 class ColorDetailView(DetailView):
@@ -152,3 +166,51 @@ class AddColorView(CreateView):
     form_class = ColorForm
     template_name = "add_color.html"
     success_url = reverse_lazy("index")
+
+
+# 13. Mashinani tahrirlash (Update)
+class CarUpdateView(UpdateView):
+    model = Cars
+    form_class = CarsForm
+    template_name = "update_car.html"
+
+    def get_success_url(self):
+        return reverse_lazy("car_detail", kwargs={"pk": self.object.pk})
+
+
+# 14. Mashinani o‘chirish (Delete)
+class CarDeleteView(DeleteView):
+    model = Cars
+    template_name = "delete_car.html"
+    success_url = reverse_lazy("cars_list")
+
+
+# === Brands uchun CRUD ===
+
+# 15. Brendlar ro‘yxati
+class BrandListView(ListView):
+    model = Brands
+    template_name = "brand_list.html"
+    context_object_name = "brands"
+
+# 16. Brend tafsilotlari
+class BrandDetailView(DetailView):
+    model = Brands
+    template_name = "brand_detail.html"
+    context_object_name = "brand"
+
+
+# 17. Brendni yangilash
+class BrandUpdateView(UpdateView):
+    model = Brands
+    form_class = BrandsForm
+    template_name = "update_brand.html"
+
+    def get_success_url(self):
+        return reverse_lazy("brand_detail", kwargs={"pk": self.object.pk})
+
+# 18. Brendni o‘chirish
+class BrandDeleteView(DeleteView):
+    model = Brands
+    template_name = "delete_brand.html"
+    success_url = reverse_lazy("brand_list")

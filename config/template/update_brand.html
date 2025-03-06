@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block comment %}
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center text-primary mb-4">Brendni tahrirlash</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.as_p }}
+            </div>
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'brand_list' %}" class="btn btn-secondary">⬅️ Orqaga</a>
+                <button type="submit" class="btn btn-success">💾 Saqlash</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

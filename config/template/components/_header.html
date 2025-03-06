@@ -2,13 +2,20 @@
     <header>
             <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
                 <div class="container-fluid">
-                    <a class="navbar-brand mb-4" href="{% url 'index' %}">AUTOSALON</a>
+                    <a class="navbar-brand" href="{% url 'index' %}">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk85LgpxjhTJxWt57TFmvJoZdjmRmJF1ww6Q&s"
+                             alt="Autosalon Logo"
+                             class="logo-img"
+                             style="width: 100px; height: 50px;">
+                    </a>
+                    <a class="navbar-brand mb-4" href="{% url 'index' %}"></a>
                     <button data-mdb-collapse-init class="navbar-toggler" type="button"
                         data-mdb-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-bars"></i>
                     </button>
-    <div class="container-fluid">
+    {% if request.resolver_match.url_name == 'index' %}
+                        <div class="container-fluid">
         <button data-mdb-ripple-init type="submit" class="btn btn-primary me-2 px-2 py-1">
         <a href="{% url 'add_brand' %}" class="btn btn-primary  fw-bold"><b>Add Brands</b></a>
         </button>
@@ -19,7 +26,23 @@
         <a href="{% url 'add_color' %}" class="btn btn-primary  fw-bold"><b>Add Color</b></a>
         </button>
     </div>
+    {% endif %}
+
     </div>
+    <form class="d-flex input-group w-auto">
+      <input
+        name="query"
+        type="search"
+        class="form-control rounded"
+        placeholder="Search"
+        aria-label="Search"
+        aria-describedby="search-addon"
+      />
+      <span class="input-group-text border-0" id="search-addon">
+        <i class="fas fa-search"></i>
+      </span>
+    </form>
+
       <div class="d-flex align-items-center">
         {% if not request.user.is_authenticated %}
             <button data-mdb-ripple-init type="submit" class="btn btn-link px-3 me-2">
@@ -30,6 +53,9 @@
             <a href="{% url 'user_register' %}" class="btn btn-primary  fw-bold"><b>Register</b></a>
             </button>
         {%else%}
+              <button data-mdb-ripple-init type="submit" class="btn btn-primary me-2 px-2 py-1">
+        <a href="{% url 'brand_list' %}" class="btn btn-primary fw-bold"><b>Brands</b></a>
+    </button>
         <button data-mdb-ripple-init type="submit" class="btn btn-primary me-2 px-2 py-1">
         <a href="{% url 'send_message' %}" class="btn btn-primary  fw-bold"><b>Email</b></a>
         </button>
@@ -64,6 +90,9 @@
       </div>
         {%endif%}
       </div>
+
+
+
             </nav>
         </header>
 

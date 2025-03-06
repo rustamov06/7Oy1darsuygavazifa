@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block comment %}
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center text-primary mb-3">{{ brand.name }}</h2>
+        <p class="text-muted text-center">📌 Brend haqida ma’lumot:</p>
+        <p class="text-center">{{ brand.description }}</p>
+
+        <div class="d-flex justify-content-between mt-3">
+            <a href="{% url 'update_brand' brand.pk %}" class="btn btn-warning">✏️ Tahrirlash</a>
+            <a href="{% url 'delete_brand' brand.pk %}" class="btn btn-danger">❌ O‘chirish</a>
+            <a href="{% url 'brand_list' %}" class="btn btn-secondary">⬅️ Orqaga</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
